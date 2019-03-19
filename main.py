@@ -63,7 +63,7 @@ def predict():
             pleasure_preds = pleasure_model.predict(eeg_data)
             data['predictions'] = {
                 'arousal': [arousal_preds.tolist()],
-                'pleasure': [arousal_preds.tolist()],
+                'pleasure': [pleasure_preds.tolist()],
             }
             data['success'] = True
 
