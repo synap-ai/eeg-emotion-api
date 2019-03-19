@@ -4,9 +4,11 @@ import io
 import pickle
 import math
 from collections import defaultdict
+from flask_cors import CORS
 
 # initialize our Flask application and the Keras model
 app = flask.Flask(__name__)
+CORS(app)
 app.config.update(
     DEBUG=True,
     MAX_CONTENT_LENGTH=50000000
