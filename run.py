@@ -13,7 +13,6 @@ app.config.update(
 model = None
 
 EEG_WINDOW_SIZE = 3564
-
 EEG_SENSORS = ['tp9', 'af7', 'af8', 'tp10']
 
 def load():
@@ -43,10 +42,14 @@ def predict():
 
     if flask.request.method == "POST":
         if flask.request.get_json("eeg"):
-            eeg = prepare_eeg(flask.request.get_json("eeg")["eeg"][:EEG_WINDOW_SIZE])
+            eeg_data = flask.request.get_json("eeg")["eeg"]
+            if len(eeg_data) < EEG_WINDOW_SIZE:
+                data["message"] = "EEG sample size is too small"
+                return flask.jsonify(data)
 
+            eeg_data = prepare_eeg(eeg_data[:EEG_WINDOW_SIZE])
             with graph.as_default():
-                preds = model.predict(eeg)
+                preds = model.predict(eeg_data)
                 data["predictions"] = [preds.tolist()]
                 data["success"] = True
 
