@@ -27,7 +27,6 @@ def load():
     global pleasure_model
     pleasure_model = pickle.load(open('models/eeg_pleasure_classify_model.pickle', 'rb'))
 
-
 def prepare_eeg(eeg):
     # TODO Add blink filter
     eeg_readings = defaultdict(list)
@@ -119,8 +118,8 @@ def bandpower(data, sf, band, window_sec=None, relative=False):
         bp /= simps(psd, dx=freq_res)
     return bp
 
+load()
 if __name__ == '__main__':
     print(('* Loading model and Flask starting server...'
            'please wait until server has fully started'))
-    load()
     app.run()
