@@ -52,7 +52,7 @@ def prepare_eeg(eeg):
     return np.array(band_powers)
 
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST', 'OPTIONS'])
 def predict():
     data = {'success': False}
 
